@@ -1,5 +1,5 @@
 login ke Shopify menggunakan kredensial milik saya:
-email: u1785027713971@web-library.net
-pass: HHao12!!aw
-buka halaman https://accounts.shopify.com/lookup, 
+Email: pentester_indo@wearehackerone.com
+pass: Y0dWdWRHVno
+buka halaman https://partners.shopify.com, 
 gunakan skill browser-local, setiap halaman di screenshot lalu lihat halamannya supaya memudahkan kamu mengisi, termasuk saat menyelesaikan captcha yang ada
