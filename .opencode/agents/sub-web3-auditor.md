@@ -7,7 +7,7 @@ tools:
   glob: true
   grep: true
 mode: subagent
-model: opencode/x-preview-f-free
+model: opencode/muse-spark-1.3-contributor-free
 temperature: 0.3
 permission:
   edit: allow
