@@ -22,15 +22,51 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Install and Run OpenCode
+      # ---------- Install OpenCode (dulu, supaya siap pakai) ----------
+      - name: Install OpenCode
         run: |
           curl -fsSL https://opencode.ai/install | bash
+          echo "$HOME/.opencode/bin" >> $GITHUB_PATH
+
+      - name: Verify OpenCode installed
+        run: |
+          export PATH="$HOME/.opencode/bin:$PATH"
+          opencode --version || opencode --help
+
+      # ---------- Install dependencies browser-mcp ----------
+      - name: Install Chromium
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser || sudo apt-get install -y chromium
+
+      - name: Install Python deps
+        run: |
+          python3 -m pip install --user --upgrade pip
+          python3 -m pip install --user websocket-client
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      # ---------- Clone & Install browser-mcp ----------
+      - name: Clone and Install browser-mcp
+        run: |
+          git clone https://github.com/eye-fox/browser-mcp.git
+          cd browser-mcp
+          ./install.sh
+
+      - name: Verify browser-mcp registered to OpenCode
+        run: |
+          echo "--- ~/.config/opencode/opencode.json ---"
+          cat "$HOME/.config/opencode/opencode.json" || echo "NOT FOUND"
+
+      # ---------- Jalankan prompt ----------
+      - name: Run OpenCode with Prompt
+        run: |
+          export PATH="$HOME/.opencode/bin:$PATH"
           PROMPT=$(cat prompt.txt)
-          ~/.opencode/bin/opencode run "$PROMPT" -m opencode/muse-spark-1.3-contributor-free --auto
+          opencode run "$PROMPT" -m opencode/muse-spark-1.3-contributor-free --auto
 
       - name: Upload hasil
         uses: actions/upload-artifact@v4
         with:
           name: hasil_hunting
-          path: '**/*.md'
+          path: 'hasil/**'
           if-no-files-found: error
