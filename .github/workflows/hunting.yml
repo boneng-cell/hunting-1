@@ -22,45 +22,75 @@ jobs:
         with:
           node-version: '24'
 
-      # ---------- Install OpenCode (dulu, supaya siap pakai) ----------
+      # ========== CACHE OPENCODE BINARY ==========
+      - name: Cache OpenCode binary
+        id: cache-opencode
+        uses: actions/cache@v4
+        with:
+          path: ~/.opencode
+          key: ${{ runner.os }}-opencode-v1
+
       - name: Install OpenCode
+        if: steps.cache-opencode.outputs.cache-hit != 'true'
         run: |
           curl -fsSL https://opencode.ai/install | bash
-          echo "$HOME/.opencode/bin" >> $GITHUB_PATH
 
-      - name: Verify OpenCode installed
-        run: |
-          export PATH="$HOME/.opencode/bin:$PATH"
-          opencode --version || opencode --help
+      - name: Add OpenCode to PATH
+        run: echo "$HOME/.opencode/bin" >> $GITHUB_PATH
 
-      # ---------- Install dependencies browser-mcp ----------
-      - name: Install Chromium
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y chromium-browser || sudo apt-get install -y chromium
+      # ========== CACHE PYTHON DEPENDENCIES ==========
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-websocket-client
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Install Python deps
         run: |
-          python3 -m pip install --user --upgrade pip
           python3 -m pip install --user websocket-client
           echo "$HOME/.local/bin" >> $GITHUB_PATH
 
-      # ---------- Clone & Install browser-mcp ----------
-      - name: Clone and Install browser-mcp
+      # ========== CACHE CHROMIUM ==========
+      - name: Cache Chromium
+        id: cache-chromium
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/chromium
+          key: ${{ runner.os }}-chromium-v1
+
+      - name: Install Chromium
+        if: steps.cache-chromium.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium || sudo apt-get install -y chromium-browser
+
+      # ========== BROWSER-MCP ==========
+      - name: Cache browser-mcp repo
+        id: cache-browser-mcp
+        uses: actions/cache@v4
+        with:
+          path: browser-mcp
+          key: ${{ runner.os }}-browser-mcp-v1
+
+      - name: Clone browser-mcp
+        if: steps.cache-browser-mcp.outputs.cache-hit != 'true'
         run: |
           git clone https://github.com/eye-fox/browser-mcp.git
+
+      - name: Install browser-mcp
+        run: |
           cd browser-mcp
           ./install.sh
 
-      - name: Verify browser-mcp registered to OpenCode
+      # ========== VERIFY & RUN ==========
+      - name: Verify browser-mcp registered
         run: |
-          echo "--- ~/.config/opencode/opencode.json ---"
           cat "$HOME/.config/opencode/opencode.json" || echo "NOT FOUND"
 
-      # ---------- Jalankan prompt ----------
       - name: Run OpenCode with Prompt
         run: |
-          export PATH="$HOME/.opencode/bin:$PATH"
           PROMPT=$(cat prompt.txt)
           opencode run "$PROMPT" -m opencode/muse-spark-1.3-contributor-free --auto
 
