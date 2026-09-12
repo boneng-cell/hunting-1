@@ -1,5 +1,5 @@
 selesaikan lab ini:
-https://0aa700b1032f5bad814970dc0077001b.web-security-academy.net/
-keterangan: To solve the lab, perform a cross-site scripting attack that bypasses the CSP and calls the alert function. 
+https://0a91007304f95c5e803076ad00e100ae.web-security-academy.net/
+keterangan: To solve this lab, construct an HTML injection that clobbers a variable and uses XSS to call the alert() function. 
 hanya boleh menggunakan browser-mcp, catat waktu awal Mulai dan waktu selesai lewat utc supaya saya bisa tahu durasi nya
 catat hasil durasi nya pada hasil/durasi.txt
