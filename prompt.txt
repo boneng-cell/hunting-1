@@ -1,5 +1,6 @@
 selesaikan lab ini:
-https://0a91007304f95c5e803076ad00e100ae.web-security-academy.net/
-keterangan: To solve this lab, construct an HTML injection that clobbers a variable and uses XSS to call the alert() function. 
+https://0a5e001503afb09d8171da7d00ea00b9.web-security-academy.net/
+keterangan: To solve the lab, create a custom exploit to delete the file /.ssh/id_rsa from Carlos's home directory.
+You can log in to your own account using the following credentials: wiener:peter 
 hanya boleh menggunakan browser-mcp, catat waktu awal Mulai dan waktu selesai lewat utc supaya saya bisa tahu durasi nya
 catat hasil durasi nya pada hasil/durasi.txt
