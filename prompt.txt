@@ -1,3 +1,4 @@
-gunakan browser-mcp dan selesaikan challenge dari link
-https://capskip.com/captcha-demo/text-captcha/
-berikan saya hasilnya pada direktori hasil/
+selesaikan lab ini:
+https://0a7400bf04e5e112811945e700f300b0.web-security-academy.net/
+keterangan: To solve the lab, use the LLM to delete the user carlos. 
+hanya boleh menggunakan browser-mcp, catat waktu awal Mulai dan waktu selesai lewat utc supaya saya bisa tahu durasi nya
