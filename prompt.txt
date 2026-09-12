@@ -1,1 +1,3 @@
-kamu kan bug Hunter profesional jadi cari kerentanan owasp, install tools eksternal jika diperlukan, load browser-local jika diperlukan untuk keperluan render dan bisa screenshot untuk pemahaman gambar, gunakan subagent supaya tugas bisa berjalan pararel, cari target di hackerone, intigriti, maupun lewat dorking google, cari kerentanan yang tidak perlu login user, kayak xss sql ssti information disclosure dan lain lain yang bisa ditemukan tanpa harus login, jangan berhenti sampai dapat minimal 1 yang valid, lalu tulis laporan pada hasil/report.md
+gunakan browser-mcp dan selesaikan challenge dari link
+https://capskip.com/captcha-demo/text-captcha/
+berikan saya hasilnya pada direktori hasil/
